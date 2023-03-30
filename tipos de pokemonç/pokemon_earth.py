@@ -1,5 +1,5 @@
 import random
-from pokemon import *
+from juego.pokemon import *
 
 class PokemonTierra(Pokemon):
     
