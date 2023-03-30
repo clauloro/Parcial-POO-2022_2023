@@ -1,0 +1,14 @@
+import random
+from pokemon import * 
+    
+class PokemonElectricidad(Pokemon):
+    
+    def __init__(self, nombre, ataque):
+        super().__init__(nombre, "Electricidad", 100, ataque, 10)
+        
+    def fight(self, pokemon_rival):
+        if random.randint(1, 100) <= 50:
+            print("El ataque de {} ha sido doblemente efectivo.".format(self.nombre))
+            pokemon_rival.vida -= self.ataque * 2 - pokemon_rival.defensa
+        else:
+            pokemon_rival.vida -= self.ataque - pokemon_rival.defensa

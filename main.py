@@ -1,55 +1,37 @@
-import random
+import pandas as pd
 
-class Pokemon:
+def presentacion():
+    print("Estos son los dos entrenadores que se enfrentarán:")
+    # Presentamos los pokemones de los dos entrenadores
+    datos1 = pd.read_csv('1_coach.csv')
+    print("----------------------------------------datos del coach 1---------------------------")
+    print(datos1)
 
-    def __init__(self, name, elemental_type, level, power):
-        self.name = name
-        self.elemental_type = elemental_type
-        self.level = level
-        self.power = power
-        self.current_health = level * 10
-
-    def attack(self, pokemon):
-        print("{} attacks {}...".format(self.name, pokemon.name))
-        pokemon.defend(self.power)
-
-    def defend(self, damage):
-        self.current_health -= damage
-        if self.current_health < 0:
-            self.current_health = 0
-        print("{} receives {} damage points.".format(self.name, damage))
-        if self.current_health == 0:
-            print("{} has been defeated.".format(self.name))
-
-    def is_undefeated(self):
-        return self.current_health > 0
+    datos2 = pd.read_csv('2_coach.csv')
+    print("----------------------------------------datos del coach 2---------------------------")
+    print(datos2)
 
 
-class Coach:
-    def __init__(self, name, pokemons):
-        self.name = name
-        self.pokemons = pokemons
-        self.selected_pokemon = None
+# Ahora vamos a guardar los datos de los pokemones en una lista
 
-    def select_pokemon(self):
-        
-        if not self.pokemons:
-            print(f"{self.name}, you have no Pokemons left!")
-            return
+# COACH 1
+with open('1_coach.csv', 'r') as file:
+    datos = csv.reader(file)
+    datos_coach1 = [tuple(pokemon) for pokemon in datos][1:]
 
-        print(f"{self.name}, select a Pokemon:")
-        for i, pokemon in enumerate(self.pokemons):
-            print(f"{i + 1}. {pokemon.name} (HP: {pokemon.current_hp}/{pokemon.hp})")
+pokemon1_coach1 = datos_coach1[0]
+pokemon2_coach1 = datos_coach1[1]
+pokemon3_coach1 = datos_coach1[2]
 
-        selected_pokemon = None
-        while not selected_pokemon:
-            try:
-                choice = int(input("Enter the number of the Pokemon: "))
-                if not 1 <= choice <= len(self.pokemons):
-                    raise ValueError
-                selected_pokemon = self.pokemons[choice - 1]
-            except (ValueError, IndexError):
-                print("Invalid choice. Please enter a valid number.")
 
-        self.selected_pokemon = selected_pokemon
-        print(f"{self.name} selected {self.selected_pokemon.name}!")
+# COACH 2
+with open('2_coach.csv', 'r') as file:
+    datos = csv.reader(file)
+    datos_coach2 = [tuple(pokemon) for pokemon in datos][1:]
+
+pokemon1_coach2 = datos_coach2[0]
+pokemon2_coach2 = datos_coach2[1]
+pokemon3_coach2 = datos_coach2[2]
+
+
+
