@@ -1,91 +1,93 @@
 from enum import Enum
 
-class Weapon(Enum):
-    PUNCH = 1
-    KICK = 2
-    ELBOW = 3
-    HEADBUTT = 4
+class Arma(Enum):
+    PUÑO = 1
+    PATADA = 2
+    CODAZO = 3
+    CABEZAZO = 4
 
 
 class Pokemon():
     ids_list =[]
 
-    def __init__(self, pokemon_id, name, weapon_type, health_points, attack_index, defense_index):
-        self.__pokemon_id = pokemon_id
-        self.__name = name
-        self.__weapon_type = weapon_type
-        self.__health_points = health_points
-        self.__attack_index = attack_index
-        self.__defense_index = defense_index 
+    def __init__(self, id_pokemon, nombre, tipo_arma, puntos_salud, indice_ataque, indice_defensa):
+        self.__id_pokemon = id_pokemon
+        self.__nombre = nombre
+        self.__tipo_arma = tipo_arma
+        self.__puntos_salud = puntos_salud
+        self.__indice_ataque = indice_ataque
+        self.__indice_defensa = indice_defensa 
 
-        if pokemon_id in Pokemon.ids_list:
-            raise ValueError("pokemon ID already exists.")
+        if id_pokemon in Pokemon.lista_ids:
+            raise ValueError("El ID del pokemon ya existe.")
         else:
-            Pokemon.ids_list.append(pokemon_id)
-        if not (1<= health_points <= 100):
-            raise ValueError(" Health points should be between 1 and 100.")
-        if not (1<= attack_index <= 10):
-            raise ValueError("Attack index should be between 1 and 10")
-        if not (1<= defense_index <= 10):
-            raise ValueError("Defense index should be between 1 and 10.")
-    def __del__(self):
-        Pokemon.ids_list.remove(self.__pokemon_id)
-    
-    def __str__(self):
-        weapon_name = self.__weapon_type.name
-        return f"Pokemon ID {self.__pokemon_id} with name {self.__name} has as weapon {weapon_name} and health {self.__health_points}."
-    
-    def get_pokemon_id(self):
-        return self.__pokemon_id
-    
-    def get_name(self):
-        return self.__name
-    
-    def get_weapon_type(self):
-        return self.__weapon_type
-    
-    def get_attack_index(self):
-        return self.__attack_index
-    
-    def get_defense_index(self):
-        return self.__defense_index
-    
-    def set_health_points(self, new_health_points):
-        if not (1<= new_health_points <= 100):
-            raise ValueError("Health points should be  between 1 and 100.")
-        self.__health_points = new_health_points
-    
-    def is_alive(self):
-        return self.__health_points > 0
-    
-    def fight_attack(self, pokemon_to_attack):
-        attack_points = self.__attack_index
-        return pokemon_to_attack.fight_defense(attack_points)
-    
-    def fight_defense(self, points_of_damage):
-        defense_points = self.__defense_index
-        if defense_points > points_of_damage:
-            return False
-        else: 
-            damage = points_of_damage - defense_points 
-            new_health_points = self.__health_points - damage
-            if new_health_points < 0:
-                self.__health_points = 0
-            else:
-                self.__health_points = new_health_points
-            return True
+            Pokemon.lista_ids.append(id_pokemon)
+        if not (1<= puntos_salud <= 100):
+            raise ValueError("Los puntos de salud deben estar entre 1 y 100.")
+        if not (1<= indice_ataque <= 10):
+            raise ValueError("El índice de ataque debe estar entre 1 y 10.")
+        if not (1<= indice_defensa <= 10):
+            raise ValueError("El índice de defensa debe estar entre 1 y 10.")
+
+def __del__(self):
+    Pokemon.lista_ids.remove(self.__id_pokemon)
+
+def __str__(self):
+    tipo_arma_nombre = self.__tipo_arma.name
+    return f"El pokemon con ID {self.__id_pokemon}, nombre {self.__nombre}, arma {tipo_arma_nombre} y {self.__puntos_salud} puntos de salud."
+
+def get_id_pokemon(self):
+    return self.__id_pokemon
+
+def get_nombre(self):
+    return self.__nombre
+
+def get_tipo_arma(self):
+    return self.__tipo_arma
+
+def get_indice_ataque(self):
+    return self.__indice_ataque
+
+def get_indice_defensa(self):
+    return self.__indice_defensa
+
+def set_puntos_salud(self, nuevos_puntos_salud):
+    if not (1<= nuevos_puntos_salud <= 100):
+        raise ValueError("Los puntos de salud deben estar entre 1 y 100.")
+    self.__puntos_salud = nuevos_puntos_salud
+
+def esta_vivo(self):
+    return self.__puntos_salud > 0
+
+def atacar(self, pokemon_a_atacar):
+    puntos_ataque = self.__indice_ataque
+    return pokemon_a_atacar.defenderse(puntos_ataque)
+
+def defenderse(self, puntos_de_daño):
+    puntos_defensa = self.__indice_defensa
+    if puntos_defensa > puntos_de_daño:
+        return False
+    else: 
+        daño = puntos_de_daño - puntos_defensa 
+        nuevos_puntos_salud = self.__puntos_salud - daño
+        if nuevos_puntos_salud < 0:
+            self.__puntos_salud = 0
+        else:
+            self.__puntos_salud = nuevos_puntos_salud
+        return True
+
 
 
 
 def main():
 #probar la clase
-    pokemon1 = Pokemon(1, 'Bulbasaur', Weapon.PUNCH, 90,7,5)
-    pokemon2 = Pokemon(2, 'Charmander', Weapon.KICK, 80,8,4)
+    pokemon1 = Pokemon(1, 'Bulbasaur', Arma.PUÑO, 90,7,5)
+    pokemon2 = Pokemon(2, 'Charmander', Arma.PATADA, 80,8,4)
     print(pokemon1)
     print(pokemon2)
-    pokemon1.fight_attack(pokemon2)
+    pokemon1.atacar(pokemon2)
     print(pokemon2)
-    pokemon2.fight_attack(pokemon1)
+    pokemon2.atacar(pokemon1)
     print(pokemon1)
 
 
